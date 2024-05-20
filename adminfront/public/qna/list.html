@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="stylesheet" type="text/css" href="/css/list.css" />
+    <link rel="stylesheet" type="text/css" href="/css/detail.css" />
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.7.8/handlebars.min.js"
+      integrity="sha512-E1dSFxg+wsfJ4HKjutk/WaCzK7S2wv1POn1RRPGh8ZK+ag9l244Vqxji3r6wgz9YBf6+vhQEYJZpSjqWFPg9gg=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    ></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+  </head>
+  <body>
+    <header class="x-page-header"></header>
+    <sidebar class="x-page-sidebar"></sidebar>
+    <div class="container">
+      <h3>1:1 문의내역</h3>
+      <div class="button-container">
+        <button id="all">전체</button>
+        <button id="incomplete">미처리</button>
+        <button id="complete">처리</button>
+      </div>
+      <div class="tbl-header">
+        <table cellpadding="0" cellspacing="0" border="0">
+          <thead>
+            <tr>
+              <th>No</th>
+              <th>제목</th>
+              <th>진행상태</th>
+              <th>작성일</th>
+            </tr>
+          </thead>
+        </table>
+      </div>
+      <div class="tbl-content">
+        <table cellpadding="0" cellspacing="0" border="0">
+          <tbody></tbody>
+        </table>
+      </div>
+    <div id="detailModal" class="modal">
+      <div class="modal-content" id="modalContent">
+        <!-- 모달 내용은 JavaScript에서 로드됩니다 -->
+      </div>
+      <button type="button" id="closeBtn">✕</button>
+    </div>
+    <script id="tr-template" type="text/x-handlebars-template">
+      {{#each data}}
+        <tr class="rowItem">
+          <td class="qno">{{questionNo}}</td>
+          <td>{{title}}</td>
+          <td class="state">{{stateStr}}</td>
+          <td>{{regDate}}</td>
+        </tr>
+      {{/each}}
+    </script>
+
+    <script id="detail-template" type="text/x-handlebars-template">
+      <h4>문의 내용</h4>
+      <div class="content">
+        <form>
+          <div class="infoBox">
+            <div class="info">
+              <span>문의번호</span>
+              <span>{{questionNo}}</span>
+            </div>
+            <div class="hr"></div>
+          </div>
+          <div class="infoBox">
+            <div class="info">
+              <span>작성자</span>
+              <span>{{writer.name}}</span>
+            </div>
+            <div class="hr"></div>
+          </div>
+          <div class="infoBox">
+            <div class="info">
+              <span>제목</span>
+              <span>{{title}}</span>
+            </div>
+            <div class="hr"></div>
+          </div>
+          <div class="infoBox">
+            <div class="info">
+              <span>내용</span>
+              <span>{{content}}</span>
+            </div>
+            <div class="hr"></div>
+          </div>
+          <div class="infoBox">
+            <div class="info">
+              <span>등록일</span>
+              <span>{{regDate}}</span>
+            </div>
+            <div class="hr"></div>
+          </div>
+
+          <div class="infoBox answer-info">
+            <div class="info">
+              <span>답변</span>
+              <textarea readonly>{{answer}}</textarea>
+            </div>
+            <div class="hr"></div>
+          </div>
+          <div class="infoBox answer-info">
+            <div class="info">
+              <span>답변 날짜</span>
+              <span>{{ansDate}}</span>
+            </div>
+            <div class="hr"></div>
+          </div>
+          <div class="infoBox">
+            <div class="info">
+              <span>처리 상태</span><span>{{stateStr}}</span>
+            </div>
+            <div class="hr"></div>
+          </div>
+
+          <h4 class="partTitle">첨부 파일</h4>
+          <div class="imgFiles">
+            {{#each photos}}
+            <div>
+                <div class="card">
+                    <img class="imgFile" src="https://kr.object.ncloudstorage.com/tp3-salaba/question/{{uuidName}}"">
+                </div>
+            </div>
+            {{/each}}
+            <div class="hr"></div>
+        </div>
+        <div class="dealBox">
+          <textarea id="answer"></textarea>
+          <button class="dealBtn">답변</button>
+        </div>
+        </form>
+      </div>
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="/js/common.js"></script>
+    <script src="/js/page-init.js"></script>
+    <script src="list.js"></script>
+    <script src="/js/list.js"></script>
+
+  </body>
+</html>
