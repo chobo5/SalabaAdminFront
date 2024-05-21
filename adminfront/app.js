@@ -5,6 +5,8 @@ const cors = require('cors');
 const app = express();
 const port = process.env.PORT || 3000;
 
+
+app.use(cors());
 // 정적 파일 제공
 app.use(express.static(path.join(__dirname, 'public')));
 
