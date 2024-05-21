@@ -1,6 +1,6 @@
 "use strict"
 
-const RESTAPI_HOST = "http://localhost:8890";
+const RESTAPI_HOST = "http://223.130.141.88:80";
 
 
 
